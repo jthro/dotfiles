@@ -1,0 +1,13 @@
+# theme
+theme = tokyonight_moon
+font-family = "Monaspace Neon"
+font-size = 10
+
+# make font normal height
+freetype-load-flags = no-force-autohint
+
+# make annoying popup go away
+resize-overlay = never
+
+# zsh integration
+shell-integration = zsh

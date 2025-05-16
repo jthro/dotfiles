@@ -16,5 +16,12 @@ compinit
 # syntax highlighting
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+updatedots() {
+  prev_dir="$PWD"
+  cd ~/dotfiles/
+  stow .
+  cd "$prev_dir"
+}
+
 # starship
 eval "$(starship init zsh)"

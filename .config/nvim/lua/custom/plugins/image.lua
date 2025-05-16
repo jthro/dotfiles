@@ -1,6 +1,6 @@
 return {
   opts = {
-    rocks = { 'magick' },
+    rocks = { "magick" },
   },
   "3rd/image.nvim",
   config = function()
@@ -11,6 +11,5 @@ return {
         },
       },
     })
-  end
+  end,
 }
-

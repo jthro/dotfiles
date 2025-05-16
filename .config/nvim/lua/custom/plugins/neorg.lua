@@ -8,14 +8,14 @@ return {
       ["core.dirman"] = {
         config = {
           workspaces = {
-	    notes = "~/notes",
-	  },
-	  default_workspaces = "notes",
+            notes = "~/notes",
+          },
+          default_workspaces = "notes",
         },
       },
       ["core.export.markdown"] = {
         config = {
-          extensions = { "mathematics", },
+          extensions = { "mathematics" },
         },
       },
       ["core.export"] = {},
@@ -29,9 +29,7 @@ return {
     },
   },
   dependencies = {
-    { "nvim-lua/plenary.nvim",
-      "3rd/image.nvim",
-    },
+    { "nvim-lua/plenary.nvim", "3rd/image.nvim" },
   },
   lazy = false,
   version = "*",

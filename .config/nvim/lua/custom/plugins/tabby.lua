@@ -1,6 +1,6 @@
 return {
   "nanozuki/tabby.nvim",
-  config = function ()
+  config = function()
     vim.o.showtabline = 2
 
     vim.api.nvim_set_keymap("n", "<leader><tab>n", ":$tabnew<CR>", { noremap = true })
@@ -15,40 +15,40 @@ return {
       current_tab = "TabLineSel",
       tab = "TabLine",
       win = "TabLine",
-      tail = "TabLine"
+      tail = "TabLine",
     }
-    require('tabby').setup({
+    require("tabby").setup({
       line = function(line)
         return {
           {
-            { '  ', hl = theme.head },
+            { "  ", hl = theme.head },
           },
           line.tabs().foreach(function(tab)
             local hl = tab.is_current() and theme.current_tab or theme.tab
             return {
-              line.sep('', hl, theme.fill),
+              line.sep("", hl, theme.fill),
               tab.number(),
               tab.name(),
-              line.sep('', hl, theme.fill),
+              line.sep("", hl, theme.fill),
               hl = hl,
-              margin = ' ',
+              margin = " ",
             }
           end),
-        line.spacer(),
-        line.wins_in_tab(line.api.get_current_tab()).foreach(function(win)
-          return {
-            win.is_current() and '' or '',
-            win.buf_name(),
-            hl = theme.win,
-            margin = ' ',
-          }
-        end),
-        {
-          { '  ', hl = theme.tail },
-        },
-        hl = theme.fill,
-      }
-    end
+          line.spacer(),
+          line.wins_in_tab(line.api.get_current_tab()).foreach(function(win)
+            return {
+              win.is_current() and "" or "",
+              win.buf_name(),
+              hl = theme.win,
+              margin = " ",
+            }
+          end),
+          {
+            { "  ", hl = theme.tail },
+          },
+          hl = theme.fill,
+        }
+      end,
     })
-  end
+  end,
 }

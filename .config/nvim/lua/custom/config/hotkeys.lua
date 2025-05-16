@@ -19,8 +19,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     map("<leader>cd", tbuiltin.lsp_definitions, "Find Definition")
     map("<leader>cD", vim.lsp.buf.declaration, "Goto Declaration")
     map("<leader>ct", tbuiltin.lsp_type_definitions, "Goto Type Definition")
-
-  end
+  end,
 })
 
 vim.keymap.set("n", "<leader>cq", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
@@ -34,7 +33,10 @@ vim.keymap.set("n", "<leader>wk", "<C-w><C-k>", { desc = "Move focus to the uppe
 vim.keymap.set("n", "<leader>wv", "<C-w><C-v>", { desc = "Split Vertical" })
 vim.keymap.set("n", "<leader>ws", "<C-w><C-s>", { desc = "Split Horizontal" })
 vim.keymap.set("n", "<leader>wc", "<C-w><C-c>", { desc = "Close Window" })
-vim.keymap.set("n", "<leader>bk", function() vim.cmd("quit") end, { desc = "Kill buffer" })
+vim.keymap.set("n", "<leader>bk", function()
+  vim.cmd("quit")
+end, { desc = "Kill buffer" })
+vim.keymap.set("n", "<leader>rd", ":tcd ")
 
 -- Toggle inline warnings
 local virtual_text_on = true
@@ -49,6 +51,10 @@ local toggle_virtual_text = function()
     print("turning on")
   end
 end
+
+vim.keymap.set("n", "<leader>bf", function()
+  require("conform").format({ bufnr = vim.api.nvim_get_current_buf() })
+end, { desc = "Format buffer" })
 
 vim.keymap.set("n", "<leader>ch", toggle_virtual_text, { desc = "Toggle inline warnings" })
 
@@ -67,14 +73,13 @@ end
 vim.keymap.set("n", "<leader>ml", toggle_latex_rendering, { desc = "Toggle LateX" })
 
 -- Telescope
-vim.keymap.set('n', '<leader>.', tbuiltin.find_files, { desc = 'Search files' })
-vim.keymap.set('n', '<leader>sp', tbuiltin.live_grep, { desc = 'Search by grep' })
-vim.keymap.set('n', '<leader>ff', function () vim.cmd("Oil") end, { desc = 'Search by grep' })
+vim.keymap.set("n", "<leader>.", tbuiltin.find_files, { desc = "Search files" })
+vim.keymap.set("n", "<leader>sp", tbuiltin.live_grep, { desc = "Search by grep" })
+vim.keymap.set("n", "<leader>ff", function()
+  vim.cmd("Oil")
+end, { desc = "Search by grep" })
 
 -- Terminal
 vim.keymap.set("n", "<leader>ot", tinyterm.toggle_terminal)
 vim.keymap.set("n", "<leader>oT", vim.cmd.term)
-
-
-vim.keymap.set("t", '<Esc><Esc>', "<C-\\><C-n>", { noremap = true })
-
+vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { noremap = true })

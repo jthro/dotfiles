@@ -3,7 +3,7 @@ return {
   version = "*",
   build = ":TSUpdate",
   lazy = false,
-  config = function ()
+  config = function()
     require("custom.config.treesitter").setup()
-  end
+  end,
 }

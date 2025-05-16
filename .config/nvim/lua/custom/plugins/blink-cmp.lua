@@ -5,15 +5,15 @@ return {
   opts = {
     keymap = {
       preset = "default",
-      ["<C-y>"] = { },
+      ["<C-y>"] = {},
       ["<CR>"] = { "accept", "fallback" },
     },
 
     appearance = {
       use_nvim_cmp_as_default = true,
-      nerd_font_variant = "mono"
+      nerd_font_variant = "mono",
     },
 
-    signature = { enabled = true }
-  }
+    signature = { enabled = true },
+  },
 }

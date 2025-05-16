@@ -13,8 +13,8 @@ local servers = {
           },
         },
         checkOnSave = true,
-      }
-    }
+      },
+    },
   },
 
   lua_ls = {},
@@ -31,8 +31,6 @@ vim.diagnostic.config({
   underline = true,
   update_in_insert = false,
   virtual_text = {
-    prefix = "▎", -- Could be "●", "▎", "x", "■" 
-  }
+    prefix = "▎", -- Could be "●", "▎", "x", "■"
+  },
 })
-
-

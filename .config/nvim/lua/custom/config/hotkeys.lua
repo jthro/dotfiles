@@ -76,6 +76,7 @@ vim.keymap.set("n", "<leader>sp", tbuiltin.live_grep, { desc = "Search by grep" 
 vim.keymap.set("n", "<leader>ff", function()
   vim.cmd("Oil")
 end, { desc = "Search by grep" })
+vim.keymap.set("n", "<leader>bb", tbuiltin.buffers, { desc = "List buffers" })
 
 -- Terminal
 vim.keymap.set("n", "<leader>ot", tinyterm.toggle_terminal)

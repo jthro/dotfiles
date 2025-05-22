@@ -16,6 +16,9 @@ local themes = require("telescope.themes")
     live_grep = {
       theme = "ivy",
     },
+    buffers = {
+      theme = "ivy",
+    },
   },
 })
 

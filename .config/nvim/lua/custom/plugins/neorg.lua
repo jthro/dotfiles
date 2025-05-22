@@ -29,7 +29,7 @@ return {
     },
   },
   dependencies = {
-    { "nvim-lua/plenary.nvim", "3rd/image.nvim" },
+    { "nvim-lua/plenary.nvim", "3rd/image.nvim", },
   },
   lazy = false,
   version = "*",

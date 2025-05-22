@@ -12,7 +12,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
       vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
     end
 
-    map("<leader>cr", vim.lsp.buf.rename, "Rename")
+    map("<leader>rn", vim.lsp.buf.rename, "Rename")
     map("<leader>ca", vim.lsp.buf.code_action, "Code Action")
     map("<leader>cr", tbuiltin.lsp_references, "Find References")
     map("<leader>ci", tbuiltin.lsp_implementations, "Find Implementations")
@@ -36,7 +36,6 @@ vim.keymap.set("n", "<leader>wc", "<C-w><C-c>", { desc = "Close Window" })
 vim.keymap.set("n", "<leader>bk", function()
   vim.cmd("quit")
 end, { desc = "Kill buffer" })
-vim.keymap.set("n", "<leader>rd", ":tcd ")
 
 -- Toggle inline warnings
 local virtual_text_on = true
@@ -83,3 +82,6 @@ end, { desc = "Search by grep" })
 vim.keymap.set("n", "<leader>ot", tinyterm.toggle_terminal)
 vim.keymap.set("n", "<leader>oT", vim.cmd.term)
 vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { noremap = true })
+
+-- Open config
+vim.keymap.set("n", "<leader>fP", ":tcd ~/dotfiles/<cr>", { desc = "Open dotfiles"})

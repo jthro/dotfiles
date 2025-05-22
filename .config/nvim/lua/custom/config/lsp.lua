@@ -18,6 +18,8 @@ local servers = {
   },
 
   lua_ls = {},
+  ts_ls = {},
+  css_ls = {},
 }
 
 for server, config in pairs(servers) do

@@ -23,5 +23,13 @@ updatedots() {
   cd "$prev_dir"
 }
 
+# cargo
+export PATH=$PATH:~/.cargo/bin/
+
+# fnm (node)
+eval "$(fnm env --use-on-cd --shell zsh)"
+
 # starship
 eval "$(starship init zsh)"
+
+

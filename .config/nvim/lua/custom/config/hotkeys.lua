@@ -1,6 +1,7 @@
 local telescope = require("telescope")
 local tbuiltin = require("telescope.builtin")
 local tinyterm = require("custom.config.tinyterm")
+local minibufremove = require("mini.bufremove")
 
 -- Map hotkeys for LSP
 -- Much shamelessly stolen from Kickstart
@@ -33,9 +34,7 @@ vim.keymap.set("n", "<leader>wk", "<C-w><C-k>", { desc = "Move focus to the uppe
 vim.keymap.set("n", "<leader>wv", "<C-w><C-v>", { desc = "Split Vertical" })
 vim.keymap.set("n", "<leader>ws", "<C-w><C-s>", { desc = "Split Horizontal" })
 vim.keymap.set("n", "<leader>wc", "<C-w><C-c>", { desc = "Close Window" })
-vim.keymap.set("n", "<leader>bk", function()
-  vim.cmd("quit")
-end, { desc = "Kill buffer" })
+vim.keymap.set("n", "<leader>bk", minibufremove.unshow, { desc = "Kill buffer" })
 
 -- Toggle inline warnings
 local virtual_text_on = true

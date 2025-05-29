@@ -1,0 +1,82 @@
+@use "sass:color";
+
+$fg-color: #4fd6be;
+$bg-color: #1e2030;
+
+.Bar {
+    background: $bg-color;
+    color: $fg-color;
+    font: {
+        weight: bold;
+        family: Monaspace Krypton;
+    }
+    border-radius: 15px;
+    padding: 4px;
+    border: 1px solid $fg-color;
+}
+
+.Workspaces {
+    min-height: 160px;
+    button {
+        all: unset;
+        background: transparent;
+        border: none;
+        margin: 4px;
+        color: $fg-color;
+    }
+
+    .focused {
+        background-color: #2f334d;
+    }
+}
+
+.Time {
+    min-height: 80px;
+}
+
+.top {
+    min-height: 256px;
+}
+
+.Charging {
+    min-width: 9px;
+}
+
+.BatterySymbol {
+    margin-right: 2px;
+}
+
+.Battery {
+    margin-right: 2px;
+}
+
+.SysTrayButton {
+    all: unset;
+    min-width: 16px;
+    padding: 8px;
+    background: $bg-color;
+}
+
+.trayContainer {
+    min-height: 32px;
+    margin: 8px;
+}
+
+.internet {
+ min-height: 16px;
+ font-size: 24px;
+ margin: 16px;
+}
+
+.status {
+ min-height: 512px;
+}
+
+.audioVisualiser {
+    margin-top: 80px;
+    min-height: 220px;
+}
+
+.visualiserBar {
+    background: $fg-color;
+}

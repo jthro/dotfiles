@@ -11,3 +11,6 @@ resize-overlay = never
 
 # zsh integration
 shell-integration = zsh
+
+# opacity
+background-opacity = 0.8

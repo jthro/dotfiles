@@ -85,7 +85,7 @@ function Workspaces() {
     const icons = new Set<[string, string]>([
         ["Discord", ""],
         ["nvim", ""],
-        ["Firefox", ""],
+        ["Firefox", "󰈹"],
         ["Emacs", ""],
         ["Steam", ""],
         ["GT: New Horizons", "󰍳"],

@@ -19,14 +19,39 @@ local servers = {
 
   lua_ls = {},
   ts_ls = {},
-  css_ls = {},
+  cssls = {},
   emmet_ls = {},
+  pyright = {},
+  verible = {},
 }
 
 for server, config in pairs(servers) do
   config.capabilities = blink_cmp.get_lsp_capabilities(config.capabilities)
   lspconfig[server].setup(config)
 end
+
+-- Add verilog support
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = {'verilog', 'systemverilog'},
+  callback = function()
+    vim.lsp.start({
+      name = 'verible',
+      cmd = {'verible-verilog-ls', '--rules_config_search'},
+    })
+  end,
+})
+
+vim.api.nvim_create_autocmd("BufWritePost", {
+  pattern = "*.v",
+  callback = function ()
+    vim.lsp.buf.format({ async = false })
+  end
+})
+
+vim.api.nvim_create_autocmd({"BufNewFile", "BufRead"}, {
+  pattern = {"*.v"},
+  command = "set filetype=verilog",
+})
 
 -- Diagnostic
 vim.diagnostic.config({

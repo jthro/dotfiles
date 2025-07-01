@@ -28,8 +28,8 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
                     <Internet />
                     <BatteryLevel />
                 </centerbox>
+                <AudioVisualiser />
             </centerbox>
-            <AudioVisualiser />
             <box className="trayContainer" halign={Gtk.Align.CENTER}><SysTray /></box>
         </centerbox>
     </window>

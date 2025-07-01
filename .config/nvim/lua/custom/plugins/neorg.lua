@@ -24,6 +24,7 @@ return {
         config = {
           conceal = true,
           render_on_enter = true,
+          debounce_ms = 1000,
         },
       },
     },

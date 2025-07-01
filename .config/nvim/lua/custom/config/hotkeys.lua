@@ -1,4 +1,3 @@
-local telescope = require("telescope")
 local tbuiltin = require("telescope.builtin")
 local tinyterm = require("custom.config.tinyterm")
 local minibufremove = require("mini.bufremove")
@@ -34,7 +33,7 @@ vim.keymap.set("n", "<leader>wk", "<C-w><C-k>", { desc = "Move focus to the uppe
 vim.keymap.set("n", "<leader>wv", "<C-w><C-v>", { desc = "Split Vertical" })
 vim.keymap.set("n", "<leader>ws", "<C-w><C-s>", { desc = "Split Horizontal" })
 vim.keymap.set("n", "<leader>wc", "<C-w><C-c>", { desc = "Close Window" })
-vim.keymap.set("n", "<leader>bk", minibufremove.unshow, { desc = "Kill buffer" })
+vim.keymap.set("n", "<leader>bk", minibufremove.delete, { desc = "Kill buffer" })
 
 -- Toggle inline warnings
 local virtual_text_on = true
@@ -83,5 +82,4 @@ vim.keymap.set("n", "<leader>ot", tinyterm.toggle_terminal)
 vim.keymap.set("n", "<leader>oT", vim.cmd.term)
 vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { noremap = true })
 
--- Open config
-vim.keymap.set("n", "<leader>fP", ":tcd ~/dotfiles/<cr>", { desc = "Open dotfiles"})
+vim.keymap.set("n", "<leader>fP", ":tcd ~/dotfiles/<cr>", { desc = "Open dotfiles" })

@@ -14,3 +14,6 @@ shell-integration = zsh
 
 # opacity
 background-opacity = 0.8
+
+# turn off exit prompt
+confirm-close-surface = false

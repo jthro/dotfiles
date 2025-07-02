@@ -92,4 +92,4 @@ local get_tab_buffers = function ()
   buffers_pick("Tab Buffers", tabbuffers.list_bufs())
 end
 
-vim.keymap.set("n", "<leader>BB", get_tab_buffers, { desc = "Pick from tab buffers" })
+vim.keymap.set("n", "<leader>bb", get_tab_buffers, { desc = "Pick from tab buffers" })

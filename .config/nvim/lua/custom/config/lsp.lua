@@ -22,7 +22,8 @@ local servers = {
   cssls = {},
   emmet_ls = {},
   pyright = {},
-  verible = {},
+  texlab = {},
+  clangd = {},
 }
 
 for server, config in pairs(servers) do
@@ -31,12 +32,13 @@ for server, config in pairs(servers) do
 end
 
 -- Add verilog support
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = {'verilog', 'systemverilog'},
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = {"verilog", "systemverilog"},
   callback = function()
     vim.lsp.start({
-      name = 'verible',
-      cmd = {'verible-verilog-ls', '--rules_config_search'},
+      name = "verible",
+      cmd = {"verible-verilog-ls", "--rules_config_search"},
+      root_dir = vim.fn.getcwd()
     })
   end,
 })
@@ -49,7 +51,7 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 })
 
 vim.api.nvim_create_autocmd({"BufNewFile", "BufRead"}, {
-  pattern = {"*.v"},
+  pattern = {"*.v", "*.vh"},
   command = "set filetype=verilog",
 })
 

@@ -27,6 +27,9 @@ updatedots() {
 # cargo
 export PATH=$PATH:~/.cargo/bin/
 
+# java
+export JAVA_HOME=/usr/lib/jvm/default
+
 # fnm (node)
 eval "$(fnm env --use-on-cd --shell zsh)"
 

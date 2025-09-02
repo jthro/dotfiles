@@ -1,12 +1,7 @@
-(setq inhibit-startup-message t)
+;; init.el
+;; entry point for emacs config
 
-(scroll-bar-mode -1)		; Turn off scrollbar
-(tool-bar-mode -1)		; Turn off toolbar
-(tooltip-mode -1)		; Turn off tooltips
-(set-fringe-mode -1)		; Turn off weird gaps on the side
-
-(menu-bar-mode -1)		; Turn off menu bar
-
+;; font setup
 (defun jthro/set-font-faces ()
   (set-face-attribute 'default nil :font "Monaspace Neon" :height 90)
   (add-to-list 'default-frame-alist '(font . "Monaspace Neon-10")))
@@ -19,219 +14,14 @@
 		  (jthro/set-font-faces))))
   (jtho/set-font-faces))
 
-;; Make Esc quit buffers
-(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+;; includes
+(add-to-list 'load-path (expand-file-name "config/" user-emacs-directory))
 
-;; Make prompt to quit active process less obnoxious
-(fset 'yes-or-no-p 'y-or-n-p)
-
-
-;; Line numbers
-(column-number-mode)
-(setq display-line-numbers-type 'relative)
-(global-display-line-numbers-mode t)
-
-(dolist (mode '(term-mode-hook
-		eshell-mode-hook))
-  (add-hook mode (lambda () (display-line-numbers-mode 0))))
-
-;; c-mode is yucky and old
-(add-to-list 'major-mode-remap-alist '(c-mode . c-ts-mode))
-(add-to-list 'major-mode-remap-alist '(c++-mode . c++-ts-mode))
-(setq c-ts-mode-indent-offset 4)
-(setq c++-ts-mode-indent-offset 4)
-
-;; Autosave is a fuck
-(setq make-backup-files nil)
-(setq backup-directory-alist `(("." . ,(expand-file-name "tmp/backups/" user-emacs-directory))))
-
-(make-directory (expand-file-name "tmp/auto-saves/" user-emacs-directory) t)
-(setq auto-save-list-file-prefix (expand-file-name "tmp/auto-saves/" user-emacs-directory)
-      lock-file-name-transforms `((".*" ,(expand-file-name "tmp/auto-saves/"
-								user-emacs-directory ) t)))
-
-
-;; Packages
-(require 'package)
-
-(setq package-archives '(("melpa" . "https://melpa.org/packages/")
-			 ("org" . "https://orgmode.org/elpa/")
-			 ("elpa" . "https://elpa.gnu.org/packages/")))
-
-(package-initialize)
-(unless package-archive-contents
-  (package-refresh-contents))
-
-(unless (package-installed-p 'use-package)
-  (package-install 'use-package))
-
-(require 'use-package)
-(setq use-package-always-ensure t) ; Always pull packages if they don't exist
-
-;; Org / Org-roam
-(defun jthro/org-mode-setup ()
-  (org-indent-mode)
-  (visual-line-mode 1))
-
-(use-package org
-  :init
-  (setq org-startup-with-latex-preview t)
-  (setq org-startup-with-inline-images t)
-  (set-face-attribute 'variable-pitch nil :family "Monaspace Neon" :height 90)
-  :hook
-  (org-mode . jthro/org-mode-setup)
-  :config
-  (local-set-key (kbd "RET") 'org-open-at-point)
-  (setq org-format-latex-options (plist-put org-format-latex-options :scale 1))
-  (setq org-ellipsis ""
-	org-hide-emphasis-markers t)
-  (setq org-agenda-files
-	'("~/org-roam/Workspace/2025-07-17-backlog.org"))
-  (setq org-agenda-start-with-log-mode t)
-  (setq org-log-into-drawer t))
-
-(use-package org-bullets
-  :after org
-  :hook (org-mode . org-bullets-mode)
-  :custom
-  (org-bullets-bullet-list '(" ")))
-
-(use-package org-roam
-  :init
-  (setq org-roam-directory (file-truename "~/org-roam"))
-  (setq org-roam-completion-everywhere t)
-  (setq org-roam-capture-templates
-	`(("l" "Lecture" plain
-           "* ${title}\n"
-           :target (file+head "Sources/Lectures/%<%Y-%m-%d>-${slug}.org"
-                              "#+title: ${title}\n#+date: %<%Y-%m-%d>\n\n")
-           :unnarrowed t)
-
-          ("s" "Source" plain
-           "* ${title}\n"
-           :target (file+head "Sources/%<%Y-%m-%d>-${slug}.org"
-                              "#+title: ${title}\n#+date: %<%Y-%m-%d>\n\n")
-           :unnarrowed t)
-	  
-          ("n" "Note" plain
-           "Tags:\n\n* ${title}\n\n\n* Sources:\n"
-           :target (file+head "Notes/%<%Y-%m-%d>-${slug}.org"
-                              "#+title: ${title}\n\n")
-           :unnarrowed t)
-	  
-          ("t" "Tag" plain
-           "* ${title}\n"
-           :target (file+head "Tags/%<%Y-%m-%d>-${slug}.org"
-                              "#+title: ${title}\n")
-           :unnarrowed t)
-	  
-          ("r" "Workspace Note" plain
-           "Tags:\n\n* ${title}\n"
-           :target (file+head "Workspace/%<%Y-%m-%d>-${slug}.org"
-                              "#+title: ${title}\n")
-           :unnarrowed t)
-	  
-          ("i" "Index" plain
-           "* ${title}\n"
-           :target (file+head "Indices/%<%Y-%m-%d>-${slug}.org"
-                              "#+title: ${title}\n")
-           :unnarrowed t)))
-  :config
-  (org-roam-db-autosync-mode))
-
-;; Pretty graph
-(use-package websocket
-  :after org-roam)
-
-(use-package org-roam-ui
-  :after org-roam
-  (setq org-roam-ui-sync-theme t
-          org-roam-ui-follow t
-          org-roam-ui-update-on-save t))
-
-;; Vterm
-(use-package vterm)
-
-(defun my/vterm-new ()
-  "Create a new vterm buffer."
-  (interactive)
-  (let ((buffer (generate-new-buffer-name "*vterm*")))
-    (vterm buffer)))
-
-(defvar my/vterm-escape-timer nil
-"Timer to detect double ESC in vterm.")
-(defvar my/vterm-escape-delay 0.2
-"Time window to detect double ESC.")
-(defun my/vterm-escape ()
-  "Handle ESC in vterm: first press sends ESC to terminal, second quickly goes to normal mode."
-  (interactive)
-  (if (and my/vterm-escape-timer
-           (timerp my/vterm-escape-timer))
-      (progn
-	(cancel-timer my/vterm-escape-timer)
-	(setq my/vterm-escape-timer nil)
-	;; Second ESC press — pass to Emacs (simulate `keyboard-quit`)
-	(evil-force-normal-state))
-    ;; First ESC press — send to vterm
-    (progn
-      (setq my/vterm-escape-timer
-            (run-with-timer my/vterm-escape-delay nil
-                            (lambda () (setq my/vterm-escape-timer nil))))
-      (vterm-send-escape))))
-
-(defun my/vterm-toggle ()
-  "Toggle a persistent vterm buffer at the bottom of the screen."
-  (interactive)
-  (let ((buf-name "*vterm-toggle*"))
-    (if (get-buffer-window buf-name)
-        (delete-window (get-buffer-window buf-name))
-      (let ((buf (get-buffer-create buf-name)))
-        (unless (comint-check-proc buf)
-          (with-current-buffer buf
-            (vterm-mode)))
-        (display-buffer-in-side-window
-         buf
-         '((side . bottom)
-           (slot . 0)
-           (window-height . 0.3)))
-	(select-window (get-buffer-window buf-name))))))
-
-(with-eval-after-load 'vterm
-  (general-define-key
-   :states 'insert
-   :keymaps 'vterm-mode-map
-   "<escape>" 'my/vterm-escape)
-  (general-define-key
-   :states 'normal
-   :keymaps 'override
-   "SPC o t" 'my/vterm-toggle
-   "SPC o T" 'my/vterm-new))
-
-;; Ivy
-(use-package ivy
-  :diminish
-  :bind (("C-s" . swiper)
-	 :map ivy-switch-buffer-map
-	 ("C-d" . ivy-switch-buffer-kill)
-	 :map ivy-reverse-i-search-map
-	 ("C-d" . ivy-reverse-i-search-kill))
-  :init
-  (ivy-mode 1))
-
-
-;; Ivy-rich (more information inside Ivy)
-(use-package ivy-rich
-  :init (ivy-rich-mode 1))
-
-;; Counsel
-(use-package counsel
-  :bind (("M-x" . counsel-M-x)
-	 ("C-x b" . counsel-ibuffer)
-	 ("C-x C-f" . counsel-find-file)
-	 :map minibuffer-local-map
-	 ("C-r" . 'counsel-minibuffer-history))
-  :config
-  (setq ivy-initial-inputs-alist nil))
+(require 'common)
+(require 'defaults)
+(require 'language)
+(require 'org-conf)
+(require 'terminal)
 
 ;; Themes
 ;; NOTE: On a new machine, run M-x all-the-icons-install-fonts
@@ -284,6 +74,10 @@
 	(cpp "https://github.com/tree-sitter/tree-sitter-cpp")
 	(rust "https://github.com/tree-sitter/tree-sitter-rust")))
 
+(use-package haskell-mode)
+
+(use-package flycheck)
+
 ;; Lsp
 (use-package lsp-mode
   :after doom-themes
@@ -306,6 +100,7 @@
   ((latex-mode) . lsp)
   ((rust-ts-mode) . lsp)
   ((python-mode) . lsp)
+  ((haskell-mode-hook) . lsp)
   :config
   (lsp-enable-which-key-integration t)
   (lsp-register-client
@@ -314,18 +109,27 @@
 		     (lambda ()
 		       `("verible-verilog-ls" "--rules_config_search")))
     :major-modes '(verilog-mode)
-    :server-id 'verible-verilog-ls)))
+    :server-id 'verible-verilog-ls))
+  (lsp-register-client
+   (make-lsp--client
+    :new-connection (lsp-stdio-connection
+		     (lambda ()
+		       `("haskell-language-server-wrapper")))
+    :major-modes '(haskell-mode)
+    :server-id 'haskell-language-server)))
+
 
 (use-package lsp-ui
   :init
   (setq lsp-ui-sideline-show-hover t)
   (setq lsp-ui-sideline-show-diagnostics t)
-  (setq lsp-ui-doc-position 'at-point))
+  (setq lsp-ui-doc-position 'at-point)
+  (setq lsp-ui-sideline-diagnostic-max-lines 5))
 
 ;; DAP
-(use-package dap-mode
-  :config
-  (require 'dap-gdb))
+; (use-package dap-mode
+;   :config
+;   (require 'dap-gdb))
 
 ;; Languages
 ;; Java
@@ -508,10 +312,11 @@
  '(package-selected-packages
    '(all-the-icons company corfu counsel-projectile dap-lldb
 		   doom-modeline doom-themes evil-collection
-		   evil-nerd-commenter flycheck general helpful
-		   ivy-rich lsp-ivy lsp-java lsp-ui no-littering
-		   org-bullets org-roam-ui rainbow-delimiters undo-fu
-		   visual-fill-column vterm yasnippet)))
+		   evil-nerd-commenter flycheck general haskell-mode
+		   helpful ivy-rich lsp-ivy lsp-java lsp-ui
+		   no-littering org-bullets org-roam-ui
+		   rainbow-delimiters undo-fu visual-fill-column vterm
+		   yasnippet)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

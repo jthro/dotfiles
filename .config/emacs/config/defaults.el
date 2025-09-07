@@ -32,5 +32,7 @@
 (setq auto-save-list-file-prefix (expand-file-name "tmp/auto-saves/" user-emacs-directory)
       lock-file-name-transforms `((".*" ,(expand-file-name "tmp/auto-saves/"
 								user-emacs-directory ) t)))
+;; auto-brackets
+(electric-pair-mode 1)
 
 (provide 'defaults)

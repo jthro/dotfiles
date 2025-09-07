@@ -1,0 +1,152 @@
+/* ROUNDED THEME FOR ROFI */
+/* Author: Newman Sanchez (https://github.com/newmanls) */
+/* Modified to remove dotted focus border and green indicator */
+
+configuration {
+    show-icons: true;
+}
+
+* {
+    font: "Roboto 12";
+
+    fg0: #b4dce7;
+    bg0: #27212e;
+    bg1: #27212e;
+    bg2: #27212e;
+    bg3: #eb64b9;
+    fg2: #eb64b9;
+    fg3: #eb64b9;
+    fg4: #ffe261;
+    fg5: #40b4c4;
+
+    background-color: @bg0;
+    text-color: @fg0;
+
+    normal-background: @bg0;
+    normal-foreground: @fg0;
+    alternate-normal-background: @bg0;
+    alternate-normal-foreground: @fg0;
+
+    margin: 0px;
+    padding: 0px;
+    spacing: 0px;
+
+    outline: none;
+    outline-color: transparent;
+    box-shadow: none;
+}
+
+window {
+    location: north;
+    y-offset: calc(50% - 176px);
+    width: 480;
+    border-radius: 24px;
+    border-color: @fg3;
+    background-color: @bg0;
+
+    border: 2px;
+    outline: none;
+    box-shadow: none;
+}
+
+mainbox {
+    padding: 12px;
+}
+
+inputbar {
+    background-color: @bg1;
+    border-color: @bg3;
+    border: 2px;
+    border-radius: 16px;
+    padding: 8px 16px;
+    spacing: 8px;
+    children: [ prompt, entry ];
+
+    outline: none;
+    box-shadow: none;
+}
+
+prompt {
+    text-color: @fg5;
+}
+
+entry {
+    placeholder: "Search";
+    placeholder-color: @fg4;
+    text-color: @fg4;
+
+    border: 0px;
+    outline: none;
+    outline-color: transparent;
+    box-shadow: none;
+}
+
+message {
+    margin: 12px 0 0;
+    border: 0px;
+    border-radius: 16px;
+    border-color: @bg2;
+    background-color: @bg2;
+}
+
+textbox {
+    padding: 8px 24px;
+}
+
+listview {
+    background-color: transparent;
+    margin: 12px 0 0;
+    lines: 8;
+    columns: 1;
+    fixed-height: false;
+
+    border: 0px;
+    outline: none;
+    box-shadow: none;
+    scrollbar: false;
+}
+
+element {
+    padding: 8px 16px;
+    spacing: 8px;
+    border-radius: 16px;
+
+    border: 0px;
+    border-color: @fg0;
+    outline: none;
+    box-shadow: none;
+    background-color: @bg1;
+}
+
+
+element normal active,
+element alternate active {
+    outline: none;
+    box-shadow: none;
+}
+
+element selected normal,
+element selected active,
+element selected {
+    background-color: @bg3;
+    border: 0px;
+    outline: none;
+    box-shadow: none;
+    text-color: @fg4;
+}
+
+element-text {
+    text-color: inherit;
+    border: 0px;
+    outline: none;
+    box-shadow: none;
+}
+
+element-icon {
+    size: 1em;
+    vertical-align: 0.5;
+
+    border: 0px;
+    outline: none;
+    box-shadow: none;
+}

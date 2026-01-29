@@ -1,0 +1,6 @@
+[submodule ".config/emacs/ts-fold"]
+	path = .config/emacs/ts-fold
+	url = https://github.com/emacs-tree-sitter/ts-fold
+[submodule "dvtm"]
+	path = dvtm
+	url = https://gitlab.archlinux.org/archlinux/packaging/packages/dvtm.git

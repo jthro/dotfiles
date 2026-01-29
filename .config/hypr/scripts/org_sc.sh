@@ -1,6 +1,6 @@
 #!/bin/bash
 
-save_dir="$HOME/org-roam/_media/"
+save_dir="$HOME/new-org-roam/"
 
 filename=$(rofi -dmenu -p "Filename for screenshot:")
 
@@ -9,6 +9,6 @@ filename=$(rofi -dmenu -p "Filename for screenshot:")
 grim -g "$(slurp)" "$save_dir/$filename.png"
 
 link="#+attr_org: :width 400
-[[file:../../_media/$filename.png]]"
+[[file:./$filename.png]]"
 
 echo -n "$link" | wl-copy

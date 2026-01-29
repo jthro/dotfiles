@@ -1,0 +1,75 @@
+{
+    "position" : "bottom",
+    "layer" : "top",
+
+    "modules-left" : [
+        "custom/notification"
+    ],
+
+    "modules-center": [
+        "clock"
+    ],
+
+    "modules-right": [
+        "tray",
+        "network",
+	"battery",
+	"power-profiles-daemon"
+    ],
+
+    "custom/notification": {
+        "tooltip": true,
+        "format": "<span>{icon}</span>",
+        "format-icons": {
+            "notification": "New Notifications",
+            "none": "No new notifications",
+            "dnd-notification": "󰂠",
+            "dnd-none": "󰪓",
+            "inhibited-notification": "󰂛",
+            "inhibited-none": "󰪑",
+            "dnd-inhibited-notification": "󰂛",
+            "dnd-inhibited-none": "󰪑"
+        },
+        "return-type": "json",
+        "exec-if": "which swaync-client",
+        "exec": "swaync-client -swb",
+        "on-click": "swaync-client -t -sw",
+        "on-click-right": "swaync-client -d -sw",
+        "escape": true
+    },
+
+    "network": {
+        "format-wifi": "{essid} ({signalStrength}%) (WIFI)",
+        "format-ethernet": "{ipaddr}/{cidr} (ETHERNET)",
+        "tooltip-format": "{ifname} via {gwaddr}",
+        "format-linked": "{ifname} (No IP)",
+        "format-disconnected": "Disconnected",
+        "format-alt": "{ifname}: {ipaddr}/{cidr}"
+    },
+
+    "clock": {
+        "format" : "{:%H:%M}",
+	"tooltip": "true",
+	"tooltip-format" : "{:%H:%M\n %a, %d. %b}"
+    },
+
+    "tray" : {
+        "spacing" : 10
+    },
+
+    "battery" : {
+        "format": " {capacity}%",
+	"on-click": "~/.config/waybar/power-profile.bash"
+    },
+
+    "power-profiles-daemon": {
+        "format": "{icon}",
+        "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+        "tooltip": true,
+        "format-icons": {
+            "performance": "Performance",
+            "balanced": "Balanced",
+            "power-saver": "Power Saver"
+        }
+    },
+}

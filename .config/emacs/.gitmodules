@@ -1,0 +1,3 @@
+[submodule "tree-sitter-ocaml"]
+	path = tree-sitter-ocaml
+	url = https://github.com/tree-sitter/tree-sitter-ocaml

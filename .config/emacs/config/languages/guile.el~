@@ -1,0 +1,10 @@
+;; guile.el
+;; configuration for scheme - i use guile
+
+(use-package geiser-guile
+  :straight t)
+
+(use-package skribe
+  :straight t)
+
+(provide 'guile)

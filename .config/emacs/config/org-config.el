@@ -1,20 +1,16 @@
-;; org-conf.el
-;; org-mode and org-roam configuration
+;; org-config.el
+;; configuration pertaining to org-mode and org-roam
 
 (use-package org
-  :straight t
+  :ensure t
   :init
   (setq org-startup-with-latex-preview t)
   (setq org-startup-with-inline-images t)
-  (set-face-attribute 'variable-pitch nil :family "Monaspace Krypton" :height 90)
   :hook
   (org-mode . (lambda ()
-	    (org-indent-mode)
-	    (visual-line-mode 1)
-	    (company-mode)))
+		(org-indent-mode)
+		(visual-line-mode 1)))
   :config
-  ;(local-set-key (kbd "RET") 'org-open-at-point)
-  (add-to-list 'org-src-lang-modes '("rust" . rust-ts))
   (setq org-format-latex-options (plist-put org-format-latex-options :scale 1))
   (setq org-ellipsis ""
 	org-hide-emphasis-markers t)
@@ -23,18 +19,19 @@
   (setq org-agenda-start-with-log-mode t)
   (setq org-log-into-drawer t))
 
+
 (use-package org-bullets
-  :straight t
+  :ensure t
   :after org
   :hook (org-mode . org-bullets-mode)
   :custom
   (org-bullets-bullet-list '(" ")))
 
 (use-package org-roam
-  :straight t
+  :ensure t
+  :after org
   :init
   (setq org-roam-directory (file-truename "~/new-org-roam"))
-  (setq org-roam-completion-everywhere t)
   (setq org-roam-capture-templates
 	`(("l" "Lecture" plain
            "Tags: [[id:d43c8b52-dc69-41c9-a090-88ccad51bfaa][lecture]]\n\n* ${title}\n"
@@ -85,28 +82,15 @@
 
 	   
            :unnarrowed t)))
-  :config
-  (org-roam-db-autosync-mode))
-
-
-;; pretty graph
-(use-package websocket
-  :straight t
-  :after org-roam)
+  :config)
 
 (use-package org-roam-ui
-  :straight t
+  :ensure t
   :after org-roam
   (setq org-roam-ui-sync-theme t
           org-roam-ui-follow t
           org-roam-ui-update-on-save t))
 
-;; major modes for languages
-(with-eval-after-load 'org
-  (setq org-src-lang-modes (assq-delete-all "C++" org-src-lang-modes))
-  (add-to-list 'org-src-lang-modes '("C++" . c++-ts)))
-
-;; keybinds
 (define-prefix-command 'jthro/org)
 (define-key jthro/org (kbd "f") 'org-roam-node-find)
 (define-key jthro/org (kbd "i") 'org-roam-node-insert)
@@ -114,26 +98,7 @@
 (define-key jthro/org (kbd "a") 'org-agenda-list)
 (define-key jthro/org (kbd "z") 'org-latex-preview)
 (define-key jthro/org (kbd "l") 'org-toggle-inline-images)
-(define-key jthro/org (kbd "c") 'cfw:open-org-calendar)
+(meow-leader-define-key '("n" . jthro/org))
 
-(meow-leader-define-key
- '("n" . jthro/org))
 
-;; calendar view
-(use-package calfw
-  :straight t)
-
-(use-package calfw-org
-  :straight t
-  :after org
-  :config
-  (setq
-   org-agenda-files '("~/new-org-roam/Workspaces/2025-11-26-planning.org")
-   cfw:org-agenda-schedule-args
-   '((:org-agenda-schedule-args "a")
-     (:org-agenda-schedule-args "t"))))
-
-(provide 'org-conf)
-
-(require 'oc)
-(require 'oc-biblatex)
+(provide 'org-config)

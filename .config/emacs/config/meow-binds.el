@@ -1,16 +1,17 @@
-;; meow.el
-;; i use meow (https://github.com/meow-edit/meow/tree/master) for my modal editor
-(use-package meow
-  :straight t)
+;; meow-binds.el
+;; meow configuration
 
 (defun meow-setup ()
   (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
-  (meow-motion-define-key
+
+  (meow-define-keys 'motion
+   '("h" . meow-left)
    '("j" . meow-next)
    '("k" . meow-prev)
+   '("l" . meow-right)
    '("<escape>" . ignore))
-  (meow-leader-define-key
-   ;; Use SPC (0-9) for digit arguments.
+
+  (meow-define-keys 'leader
    '("1" . meow-digit-argument)
    '("2" . meow-digit-argument)
    '("3" . meow-digit-argument)
@@ -23,7 +24,8 @@
    '("0" . meow-digit-argument)
    '("/" . meow-keypad-describe-key)
    '("?" . meow-cheatsheet))
-  (meow-normal-define-key
+
+  (meow-define-keys 'normal
    '("0" . meow-expand-0)
    '("9" . meow-expand-9)
    '("8" . meow-expand-8)
@@ -86,7 +88,10 @@
    '("'" . repeat)
    '("<escape>" . ignore)))
 
-(meow-setup)
-(meow-global-mode 1)
+(use-package meow
+  :ensure t
+  :config
+  (meow-setup)
+  (meow-global-mode 1))
 
 (provide 'meow-binds)

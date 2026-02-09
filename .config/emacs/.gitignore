@@ -1,15 +1,3 @@
-auto-save-list
-eclipse.jdt.ls
+elpa
 eln-cache
-straight
-transient
-tree-sitter
-workspace
-bookmarks
-org-roam.db
-projectile-bookmarks.eld
-projects
-.dap-breakpoints
-.lsp-session-v1
-.org-id-locations
-.projectile
+auto-save-list
